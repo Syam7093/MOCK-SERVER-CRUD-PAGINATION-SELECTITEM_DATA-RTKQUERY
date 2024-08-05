@@ -1,0 +1,7 @@
+{
+    "users":[
+        {"id":"we23","name":"apple","tags":["apple1","appple2"]},
+        {"id":"we56","name":"banana","tags":["banana1","banana2"]},
+        {"id":"we23","name":"grapse","tags":["grapes1","grapes2"]}
+    ]
+}

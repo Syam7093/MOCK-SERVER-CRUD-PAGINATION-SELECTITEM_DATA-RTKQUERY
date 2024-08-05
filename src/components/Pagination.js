@@ -3,6 +3,7 @@ import axios from "axios"
 
 const Pagination = () => {
     const [show,setshow]=useState([])
+    const [search,setSearch]=useState('')
     useEffect(()=>{
         showdata()
     },[])
@@ -13,7 +14,10 @@ const Pagination = () => {
     const indexoflast=currentpage*initialpages
     const indexoffirst=indexoflast-initialpages
 
-    const currentpagesof=show.slice(indexoffirst,indexoflast)
+    const filterdat=show.filter((e)=>{
+        return e.title.toLowerCase().includes(search.toLocaleLowerCase())
+      })
+    const currentpagesof=filterdat.slice(indexoffirst,indexoflast)
 
     const showdata = async () => {
         const data = await axios.get('https://fakestoreapi.com/products');
@@ -21,7 +25,7 @@ const Pagination = () => {
       };
 
       const number=[]
-      for(let i=1;i<show.length/initialpages;i++)
+      for(let i=1;i<=Math.ceil(filterdat.length/initialpages);i++)
       {
         number.push(i)
       }
@@ -40,9 +44,16 @@ const Pagination = () => {
             setCurrentPage(currentpage+1)
         }
       }
+
+      const handleSearch = (e) => {
+        setSearch(e.target.value);
+        setCurrentPage(1);
+      };
+
+
   return (
     <div>
-        
+        <input type="text" onChange={handleSearch}></input>
         {
             currentpagesof.map((e)=>{
                 return (
